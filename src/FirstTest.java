@@ -52,22 +52,19 @@ public class FirstTest {
                 5
         );
 
-        waitForElementAndClick(
-                By.id("org.wikipedia:id/search_close_btn"),
-                "Cannot find X to cancel search",
-                5
+
+        WebElement title_element = waitForElementPresent(
+                By.id("org.wikipedia:id/view_page_title_text"),
+                "Cannot find article title",
+                15
         );
 
-        waitForElementAndClear(
-                By.id("org.wikipedia:id/search_src_text"),
-                "Cannot find search field",
-                5
-        );
+        String article_title = title_element.getAttribute("text");
 
-        waitForElementNotPresent(
-                By.xpath("//*[contains(@text,'Java')]"),
-                "Java is still present on the page",
-                5
+        Assert.assertEquals(
+                "We see anexpected title!",
+                "Java",
+                article_title
         );
     }
 
@@ -105,6 +102,7 @@ public class FirstTest {
                 ExpectedConditions.invisibilityOfElementLocated(by)
         );
     }
+
     private WebElement waitForElementAndClear(By by, String error_message, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
